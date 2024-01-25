@@ -3,6 +3,7 @@ package com.example.exercice.entites;
 import com.example.exercice.enums.TypeAvis;
 
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +20,8 @@ public class Avis {
     private int id;
 
     private String texte;
-    private TypeAvis type;
+
+    public TypeAvis type;
 
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "CLIENT_ID")

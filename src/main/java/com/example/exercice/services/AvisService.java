@@ -2,10 +2,12 @@ package com.example.exercice.services;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.exercice.entites.Avis;
 import com.example.exercice.entites.Client;
+
 import com.example.exercice.repository.AvisRepository;
 
 @Service
@@ -26,10 +28,20 @@ public class AvisService {
     }
 
     public List<Avis> rechercher() {
+
         return this.avisRepository.findAll();
+
     }
 
-    public void effacer(int id) {
-        this.avisRepository.deleteById(id);
+    public boolean effacer(int id) {
+        if (!this.avisRepository.existsById(id)) {
+            return false;
+        }
+        try {
+            this.avisRepository.deleteById(id);
+            return true;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
     }
 }
